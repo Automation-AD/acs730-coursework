@@ -27,3 +27,15 @@ File 4: lab1/scripts/delete-security-group.sh
 Clean up for the security group made.
 
 
+Experiments:
+
+
+Experiment 3: Idempotent-ish Deletes
+
+
+prediction: Running delete-instance.sh a second time will print "Nothing to delete." instead of throwing an AWS error
+Observation: The script printed `Nothing to delete.`
+
+Experiment 5: .gitignore
+prediction: Running touch key.pem the git status will show untracked file due to gitignore file:
+Observation: git status returned working tree clean. git ignore automated safety net to prevent sensitive data from leaking
