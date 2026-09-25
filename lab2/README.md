@@ -1,5 +1,5 @@
-# Lab 2
+# Lab 2 - Web Application Deployment and Systemd Service
 
-Instructions for this section will be provided in class and on Blackboard when we reach it.
+## Difference between systemctl start and systemctl enable
+systemctl start immediately runs a service in the current session without persisting across boots, whereas systemctl enable configures the service to launch automatically during system startup.
 
-Put your work for Lab 2 in this folder.
