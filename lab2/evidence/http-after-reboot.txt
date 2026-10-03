@@ -1,0 +1,8 @@
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.25
+Date: Sat, 03 Oct 2026 01:01:00 GMT
+Content-type: text/html
+Content-Length: 41
+Last-Modified: Sat, 03 Oct 2026 00:59:08 GMT
+
+<h1>Welcome to ACS730 Lab 2 Web App</h1>
