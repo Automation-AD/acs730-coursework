@@ -10,7 +10,7 @@ Work done as non-root user `acs730-user`; the container runs as `appuser` (uid 1
 ## Image size
 | Image | Base | Size | Rebuild after 1-line change |
 |---|---|---|---|
-| naive | python:latest (1.13 GB) | 1.15 GB | 25 s |
+| naive | python:latest (1.13 GB) | 1.15 GB | <your-number> s |
 | slim | python:3.12-slim-bookworm (124 MB) | 130 MB | 0.6 s |
 
 - **Base image:** about 1.0 GB of the gap is the base layer (1.13 GB vs 124 MB). The full Debian base ships compilers and libraries the app never uses.
