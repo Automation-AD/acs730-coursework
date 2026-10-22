@@ -2,6 +2,7 @@ name: lab3-ci
 
 on:
   pull_request:
+    paths: [ "lab3/**" ]
 
 permissions:
   contents: read
