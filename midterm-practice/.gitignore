@@ -6,3 +6,16 @@ __pycache__/
 # Editors
 .vscode/
 .idea/
+
+# Terraform (keep .terraform.lock.hcl tracked)
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+crash.log
+
+# Secrets and credentials
+*.pem
+.env
+credentials
