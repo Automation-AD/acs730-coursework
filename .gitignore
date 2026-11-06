@@ -7,3 +7,6 @@ credentials
 __pycache__/
 *.pyc
 .pytest_cache/
+*.tfstate.*
+tfplan
+crash.log
