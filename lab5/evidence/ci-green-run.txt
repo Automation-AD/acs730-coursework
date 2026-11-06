@@ -1,0 +1,24 @@
+
+✓ lab5 lab5-ci Automation-AD/acs730-coursework#7 · 42142899557
+Triggered via pull_request about 2 minutes ago
+
+JOBS
+✓ fmt and validate in 15s (ID 127647318035)
+✓ plan and apply against LocalStack in 1m52s (ID 127647434544)
+
+ANNOTATIONS
+! Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, hashicorp/setup-terraform@v3. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+fmt and validate: .github#2
+
+- "The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748"
+fmt and validate: .github#1
+
+! Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, hashicorp/setup-terraform@v3. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+plan and apply against LocalStack: .github#2
+
+- "The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748"
+plan and apply against LocalStack: .github#1
+
+
+For more information about a job, try: gh run view --job=<job-id>
+View this run on GitHub: https://github.com/Automation-AD/acs730-coursework/actions/runs/42142899557
