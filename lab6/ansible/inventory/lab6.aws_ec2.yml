@@ -1,0 +1,17 @@
+---
+plugin: amazon.aws.aws_ec2
+
+regions:
+  - us-east-1
+
+filters:
+  "tag:Lab": lab6
+  instance-state-name: running
+
+hostnames:
+  - instance-id
+
+keyed_groups:
+  - key: tags.Role
+    prefix: role
+    separator: "_"
