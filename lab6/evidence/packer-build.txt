@@ -1,0 +1,95 @@
+golden-web.amazon-ebs.web: output will be in this color.
+
+==> golden-web.amazon-ebs.web: Prevalidating any provided VPC information
+==> golden-web.amazon-ebs.web: Prevalidating AMI Name: acs730-lab6-web-20261113-151752
+    golden-web.amazon-ebs.web: Found Image ID: ami-0b71756f4d851f798
+==> golden-web.amazon-ebs.web: Creating temporary keypair: packer_6af72a20-26d1-a05f-f1e9-eca96dd4eabe
+==> golden-web.amazon-ebs.web: Creating temporary security group for this instance: packer_6af72a21-9fe2-f504-1fdf-1b126e9d0a20
+==> golden-web.amazon-ebs.web: Checking current host's public IP...
+==> golden-web.amazon-ebs.web: Current host's public IP: 32.200.96.83
+==> golden-web.amazon-ebs.web: Authorizing access to port 22 from [32.200.96.83/32] in the temporary security groups...
+==> golden-web.amazon-ebs.web: Launching a source AWS instance...
+    golden-web.amazon-ebs.web: Instance ID: i-0653842349759bb57
+==> golden-web.amazon-ebs.web: Waiting for instance (i-0653842349759bb57) to become ready...
+==> golden-web.amazon-ebs.web: Using SSH communicator to connect: 18.208.213.36
+==> golden-web.amazon-ebs.web: Waiting for SSH to become available...
+==> golden-web.amazon-ebs.web: Connected to SSH!
+==> golden-web.amazon-ebs.web: Provisioning with Ansible...
+    golden-web.amazon-ebs.web: Not using Proxy adapter for Ansible run:
+    golden-web.amazon-ebs.web: 	Using ssh keys from Packer communicator...
+==> golden-web.amazon-ebs.web: Executing Ansible: ansible-playbook -e packer_build_name="web" -e packer_builder_type=amazon-ebs --ssh-extra-args '-o IdentitiesOnly=yes' --scp-extra-args '-O' --extra-vars build_tag=golden-ami -e ansible_ssh_private_key_file=/tmp/ansible-key3156097621 -i /tmp/packer-provisioner-ansible3545580448 /home/acs730-user/acs730-coursework/lab6/ansible/site.yml
+    golden-web.amazon-ebs.web:
+    golden-web.amazon-ebs.web: PLAY [Configure the ACS730 Lab 6 web servers] **********************************
+    golden-web.amazon-ebs.web:
+    golden-web.amazon-ebs.web: TASK [Gathering Facts] *********************************************************
+    golden-web.amazon-ebs.web: [WARNING]: Platform linux on host default is using the discovered Python
+    golden-web.amazon-ebs.web: interpreter at /usr/bin/python3.9, but future installation of another Python
+    golden-web.amazon-ebs.web: interpreter could change the meaning of that path. See
+    golden-web.amazon-ebs.web: https://docs.ansible.com/ansible-
+    golden-web.amazon-ebs.web: core/2.15/reference_appendices/interpreter_discovery.html for more information.
+    golden-web.amazon-ebs.web: ok: [default]
+    golden-web.amazon-ebs.web:
+    golden-web.amazon-ebs.web: TASK [webserver : Install the packages the application needs] ******************
+    golden-web.amazon-ebs.web: ok: [default]
+    golden-web.amazon-ebs.web:
+    golden-web.amazon-ebs.web: TASK [webserver : Create the unprivileged service account] *********************
+    golden-web.amazon-ebs.web: changed: [default]
+    golden-web.amazon-ebs.web:
+    golden-web.amazon-ebs.web: TASK [webserver : Create the application directory] ****************************
+    golden-web.amazon-ebs.web: changed: [default]
+    golden-web.amazon-ebs.web:
+    golden-web.amazon-ebs.web: TASK [webserver : Render the landing page from a template] *********************
+    golden-web.amazon-ebs.web: changed: [default]
+    golden-web.amazon-ebs.web:
+    golden-web.amazon-ebs.web: TASK [webserver : Install the systemd unit from a template] ********************
+    golden-web.amazon-ebs.web: changed: [default]
+    golden-web.amazon-ebs.web:
+    golden-web.amazon-ebs.web: TASK [webserver : Enable the service and make sure it is running] **************
+    golden-web.amazon-ebs.web: changed: [default]
+    golden-web.amazon-ebs.web:
+    golden-web.amazon-ebs.web: RUNNING HANDLER [webserver : Restart acs730-web] *******************************
+    golden-web.amazon-ebs.web: changed: [default]
+    golden-web.amazon-ebs.web:
+    golden-web.amazon-ebs.web: PLAY RECAP *********************************************************************
+    golden-web.amazon-ebs.web: default                    : ok=8    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    golden-web.amazon-ebs.web:
+==> golden-web.amazon-ebs.web: Uploading files/index.html => /tmp/baked.html
+==> golden-web.amazon-ebs.web: Provisioning with shell script: /tmp/packer-shell2727448390
+==> golden-web.amazon-ebs.web: Stopping the source instance...
+    golden-web.amazon-ebs.web: Stopping instance
+==> golden-web.amazon-ebs.web: Waiting for the instance to stop...
+==> golden-web.amazon-ebs.web: Creating AMI acs730-lab6-web-20261113-151752 from instance i-0653842349759bb57
+==> golden-web.amazon-ebs.web: Attaching run tags to AMI...
+    golden-web.amazon-ebs.web: AMI: ami-0f251da35a6d25e15
+==> golden-web.amazon-ebs.web: Waiting for AMI to become ready...
+==> golden-web.amazon-ebs.web: Skipping Enable AMI deprecation...
+==> golden-web.amazon-ebs.web: Skipping Enable AMI deregistration protection...
+==> golden-web.amazon-ebs.web: Adding tags to AMI (ami-0f251da35a6d25e15)...
+==> golden-web.amazon-ebs.web: Tagging snapshot: snap-032278f0b417cc091
+==> golden-web.amazon-ebs.web: Creating AMI tags
+    golden-web.amazon-ebs.web: Adding tag: "Project": "acs730"
+    golden-web.amazon-ebs.web: Adding tag: "Role": "web"
+    golden-web.amazon-ebs.web: Adding tag: "Lab": "lab6"
+    golden-web.amazon-ebs.web: Adding tag: "Name": "acs730-lab6-web-20261113-151752"
+==> golden-web.amazon-ebs.web: Creating snapshot tags
+==> golden-web.amazon-ebs.web: Terminating the source AWS instance...
+==> golden-web.amazon-ebs.web: Cleaning up any extra volumes...
+==> golden-web.amazon-ebs.web: No volumes to clean up, skipping
+==> golden-web.amazon-ebs.web: Deleting temporary security group...
+==> golden-web.amazon-ebs.web: Deleting temporary keypair...
+==> golden-web.amazon-ebs.web: Running post-processor:  (type manifest)
+Build 'golden-web.amazon-ebs.web' finished after 5 minutes 6 seconds.
+
+==> Wait completed after 5 minutes 6 seconds
+
+==> Builds finished. The artifacts of successful builds are:
+--> golden-web.amazon-ebs.web: AMIs were created:
+us-east-1: ami-0f251da35a6d25e15
+
+--> golden-web.amazon-ebs.web: AMIs were created:
+us-east-1: ami-0f251da35a6d25e15
+
+
+real	5m8.174s
+user	0m12.139s
+sys	0m1.900s
