@@ -1,0 +1,2 @@
+a1-prod-adamaj1-web-cpu-high	AWS/EC2	CPUUtilization	80.0	INSUFFICIENT_DATA	i-0f9a1b94c799fc634
+a1-staging-adamaj1-web-cpu-high	AWS/EC2	CPUUtilization	90.0	OK	i-0adcc4a8075da5882

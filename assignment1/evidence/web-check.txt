@@ -1,0 +1,2 @@
+staging http://44.201.60.9/ <h1>ACS730 Assignment 1 - staging</h1>
+prod http://52.54.70.131/ <h1>ACS730 Assignment 1 - prod</h1>

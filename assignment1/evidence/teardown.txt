@@ -1,0 +1,16 @@
+== terraform destroy staging
+module.webapp.aws_vpc.main: Destruction complete after 1s
+
+Destroy complete! Resources: 10 destroyed.
+== terraform destroy prod
+module.webapp.aws_vpc.main: Destruction complete after 1s
+
+Destroy complete! Resources: 10 destroyed.
+== ssm parameters
+deleted /acs730/assignment1/staging/db_password
+deleted /acs730/assignment1/prod/db_password
+== audit
+instances: i-0ccbd8bb7c55f0858	acs730-workstation 
+vpcs (non-default): 0
+alarms a1-*: 0
+ssm params: 0

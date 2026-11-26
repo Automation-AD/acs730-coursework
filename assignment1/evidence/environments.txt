@@ -1,0 +1,14 @@
+prod
+staging
+prod: required reviewer=Automation-AD, prevent_self_review=false
+prod deployment branch policy: main
+staging secrets:
+  AWS_ACCESS_KEY_ID
+  AWS_SECRET_ACCESS_KEY
+  AWS_SESSION_TOKEN
+prod secrets:
+  AWS_ACCESS_KEY_ID
+  AWS_SECRET_ACCESS_KEY
+  AWS_SESSION_TOKEN
+repo-level secrets:
+  (none)

@@ -1,0 +1,2 @@
+/acs730/assignment1/prod/db_password	SecureString
+/acs730/assignment1/staging/db_password	SecureString

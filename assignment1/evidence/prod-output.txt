@@ -1,0 +1,6 @@
+account_id = "077932765602"
+cpu_alarm_name = "a1-prod-adamaj1-web-cpu-high"
+db_password_length = 24
+vpc_id = "vpc-0e8bd8dffaa18386d"
+web_instance_id = "i-0f9a1b94c799fc634"
+web_url = "http://52.54.70.131/"

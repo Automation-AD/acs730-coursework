@@ -1,0 +1,14 @@
+data.aws_caller_identity.current
+data.aws_ssm_parameter.al2023
+module.webapp.data.aws_availability_zones.available
+module.webapp.data.aws_ssm_parameter.db_password
+module.webapp.aws_cloudwatch_metric_alarm.cpu_high
+module.webapp.aws_instance.web
+module.webapp.aws_internet_gateway.main
+module.webapp.aws_route_table.public
+module.webapp.aws_route_table_association.public["a"]
+module.webapp.aws_route_table_association.public["b"]
+module.webapp.aws_security_group.web
+module.webapp.aws_subnet.public["a"]
+module.webapp.aws_subnet.public["b"]
+module.webapp.aws_vpc.main
