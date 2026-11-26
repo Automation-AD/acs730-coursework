@@ -1,0 +1,133 @@
+name: assignment1-deploy
+
+on:
+  pull_request:
+    paths: ['assignment1/**', '.github/workflows/assignment1-deploy.yml']
+  push:
+    branches: [main]
+    paths: ['assignment1/**', '.github/workflows/assignment1-deploy.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: assignment1-deploy
+  cancel-in-progress: false
+
+env:
+  TF_IN_AUTOMATION: "true"
+
+jobs:
+  validate:
+    name: fmt and validate (${{ matrix.env }})
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        env: [dev, staging, prod]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.10.3
+          terraform_wrapper: false
+      - run: terraform fmt -check -recursive
+        working-directory: assignment1/terraform
+      - run: terraform init -backend=false -input=false
+        working-directory: assignment1/terraform/${{ matrix.env }}
+      - run: terraform validate
+        working-directory: assignment1/terraform/${{ matrix.env }}
+
+  dev:
+    name: dev on LocalStack
+    runs-on: ubuntu-24.04
+    needs: validate
+    services:
+      localstack:
+        image: localstack/localstack:3.8
+        ports: ['4566:4566']
+        env:
+          SERVICES: ec2,ssm,cloudwatch,sts,s3,iam
+        options: >-
+          --health-cmd "curl -sf http://localhost:4566/_localstack/health"
+          --health-interval 10s
+          --health-retries 12
+    defaults:
+      run:
+        working-directory: assignment1/terraform/dev
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.10.3
+          terraform_wrapper: false
+      - name: Put the dev password in LocalStack SSM
+        env:
+          AWS_ACCESS_KEY_ID: test
+          AWS_SECRET_ACCESS_KEY: test
+          AWS_DEFAULT_REGION: us-east-1
+        run: |
+          aws --endpoint-url http://localhost:4566 ssm put-parameter \
+            --name /acs730/assignment1/dev/db_password --type SecureString --value dev-placeholder-pw
+      - name: Use a local state file for dev
+        run: |
+          printf 'terraform {\n  backend "local" {\n    path = "/tmp/a1-dev.tfstate"\n  }\n}\n' > backend_override.tf
+      - run: terraform init -input=false
+      - run: terraform plan -input=false -out=tfplan
+      - run: terraform apply -input=false tfplan
+      - run: terraform output
+      - if: always()
+        run: terraform destroy -input=false -auto-approve
+
+  staging:
+    name: deploy staging
+    runs-on: ubuntu-24.04
+    needs: [validate, dev]
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    environment: staging
+    defaults:
+      run:
+        working-directory: assignment1/terraform/staging
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.10.3
+          terraform_wrapper: false
+      - run: terraform init -input=false
+      - run: terraform plan -input=false -out=tfplan
+      - run: terraform apply -input=false tfplan
+      - run: terraform output
+
+  prod:
+    name: deploy prod
+    runs-on: ubuntu-24.04
+    needs: staging
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    environment: prod
+    defaults:
+      run:
+        working-directory: assignment1/terraform/prod
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.10.3
+          terraform_wrapper: false
+      - run: terraform init -input=false
+      - run: terraform plan -input=false -out=tfplan
+      - run: terraform apply -input=false tfplan
+      - run: terraform output
